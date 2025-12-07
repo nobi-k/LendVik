@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пример: Блок экспертов с фотографиями</title>
+    <style>
+        /* Минимальные стили для демонстрации */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background: #f5f5f5;
+        }
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .demo-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1e3a8a;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .comparison-section h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .expert-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .expert-avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .expert-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .avatar-placeholder {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .expert-name {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+        .expert-role {
+            color: #1e3a8a;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        .note h4 {
+            margin-top: 0;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 class="demo-title">Пример: Блок экспертов с фотографиями</h1>
+        
+        <div class="comparison">
+            <div class="comparison-section">
+                <h3>ТЕКУЩЕЕ СОСТОЯНИЕ<br>(С placeholder)</h3>
+                <div class="expert-card">
+                    <div class="expert-avatar">
+                        <div class="avatar-placeholder">ДА</div>
+                    </div>
+                    <h3 class="expert-name">Данилов Денис Юрьевич</h3>
+                    <p class="expert-role">Эксперт по бетонным производствам</p>
+                    <p><strong>13+ лет</strong> в отрасли</p>
+                </div>
+            </div>
+            
+            <div class="comparison-section">
+                <h3>ПОСЛЕ ДОБАВЛЕНИЯ ФОТО<br>(Как будет выглядеть)</h3>
+                <div class="expert-card">
+                    <div class="expert-avatar">
+                        <!-- Вместо placeholder будет фото -->
+                        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem;">
+                            [ФОТО<br>ЭКСПЕРТА]
+                        </div>
+                        <!-- Реальный код будет:
+                        <img src="images/experts/danilov.jpg" alt="Данилов Денис Юрьевич" class="expert-photo">
+                        -->
+                    </div>
+                    <h3 class="expert-name">Данилов Денис Юрьевич</h3>
+                    <p class="expert-role">Эксперт по бетонным производствам</p>
+                    <p><strong>13+ лет</strong> в отрасли</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="note">
+            <h4>📝 Инструкция для дизайнера:</h4>
+            <ol>
+                <li>Подготовить 4 фотографии экспертов (200x200px, квадрат)</li>
+                <li>Сохранить в папку <code>images/experts/</code> с именами:
+                    <ul>
+                        <li><code>danilov.jpg</code></li>
+                        <li><code>sentyakov.jpg</code></li>
+                        <li><code>lihachev.jpg</code></li>
+                        <li><code>kalashnikov.jpg</code></li>
+                    </ul>
+                </li>
+                <li>В файле <code>index.html</code> раскомментировать строки с <code>&lt;img&gt;</code> тегами</li>
+                <li>Удалить или закомментировать строки с <code>avatar-placeholder</code></li>
+                <li>CSS уже настроен для круглой обрезки фотографий</li>
+            </ol>
+        </div>
+        
+        <div style="margin-top: 40px; padding: 20px; background: #e7f3ff; border-radius: 8px;">
+            <h4>💡 Важно:</h4>
+            <p>Фотографии будут автоматически обрезаны в круг благодаря CSS свойству <code>border-radius: 50%</code> и <code>object-fit: cover</code>. 
+            Убедитесь, что лица экспертов находятся в центре кадра для лучшего результата.</p>
+        </div>
+    </div>
+</body>
+</html>
+
