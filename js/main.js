@@ -1,3 +1,18 @@
+// Handle image fallbacks for experts
+document.addEventListener('DOMContentLoaded', function() {
+    // Show placeholder if expert photo fails to load
+    const expertPhotos = document.querySelectorAll('.expert-photo');
+    expertPhotos.forEach(photo => {
+        photo.addEventListener('error', function() {
+            const placeholder = this.nextElementSibling;
+            if (placeholder && placeholder.classList.contains('avatar-placeholder')) {
+                this.style.display = 'none';
+                placeholder.style.display = 'flex';
+            }
+        });
+    });
+});
+
 // Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
