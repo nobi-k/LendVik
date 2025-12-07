@@ -538,26 +538,14 @@ section {
     background-color: var(--bg-light);
 }
 
-/* Process Slider */
-.process-slider-container {
-    position: relative;
+.process-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
     margin: 3rem 0;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-}
-
-.process-slider-wrapper {
-    overflow: hidden;
-    position: relative;
-    margin: 0 60px;
-}
-
-.process-cards {
-    display: flex;
-    gap: 2rem;
-    transition: transform 0.5s ease;
-    will-change: transform;
 }
 
 .process-card {
@@ -568,9 +556,6 @@ section {
     transition: transform 0.3s, box-shadow 0.3s;
     position: relative;
     border-top: 4px solid var(--primary-color);
-    flex: 0 0 calc(25% - 1.5rem);
-    min-width: 280px;
-    scroll-snap-align: start;
 }
 
 .process-card:hover {
@@ -578,78 +563,6 @@ section {
     box-shadow: var(--shadow-xl);
 }
 
-.slider-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: var(--bg-white);
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    transition: all 0.3s;
-    box-shadow: var(--shadow-md);
-}
-
-.slider-btn:hover {
-    background-color: var(--primary-color);
-    color: white;
-    transform: translateY(-50%) scale(1.1);
-    box-shadow: var(--shadow-lg);
-}
-
-.slider-btn:active {
-    transform: translateY(-50%) scale(0.95);
-}
-
-.slider-btn-prev {
-    left: 0;
-}
-
-.slider-btn-next {
-    right: 0;
-}
-
-.slider-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-    pointer-events: none;
-}
-
-.slider-indicators {
-    display: flex;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-top: 2rem;
-}
-
-.slider-indicator {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: 2px solid var(--primary-color);
-    background-color: transparent;
-    cursor: pointer;
-    transition: all 0.3s;
-    padding: 0;
-}
-
-.slider-indicator:hover {
-    background-color: var(--primary-color);
-    opacity: 0.7;
-}
-
-.slider-indicator.active {
-    background-color: var(--primary-color);
-    width: 32px;
-    border-radius: 6px;
-}
 
 .process-card {
     background-color: var(--bg-white);
@@ -792,28 +705,95 @@ section {
 }
 
 /* Report Section */
+.report-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background-color: var(--bg-light);
+    border-radius: 16px;
+}
+
+.report-time-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-md);
+}
+
+.report-time-icon {
+    font-size: 1.5rem;
+}
+
+.report-time-text {
+    font-size: 1.25rem;
+}
+
+.report-intro-text {
+    font-size: 1.125rem;
+    color: var(--text-dark);
+    line-height: 1.7;
+    margin: 0;
+}
+
 .report-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
+    margin-bottom: 2rem;
 }
 
-/* Report Example Section */
-.report-example {
+.report-note {
+    margin-top: 2rem;
+    padding: 1.5rem;
     background-color: var(--bg-light);
+    border-left: 4px solid var(--accent-color);
+    border-radius: 12px;
+    color: var(--text-dark);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.report-example-content {
-    max-width: 900px;
-    margin: 0 auto;
+/* Report Example integrated */
+.report-example-integrated {
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.report-example-title {
+    font-size: 1.75rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+}
+
+.report-example-subtitle {
+    text-align: center;
+    color: var(--text-gray);
+    margin-bottom: 2rem;
+    font-size: 1.05rem;
 }
 
 .report-example-structure {
-    background-color: var(--bg-white);
+    background-color: var(--bg-light);
     padding: 2.5rem;
     border-radius: 16px;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
     margin-bottom: 2rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .report-structure-item {
@@ -841,30 +821,31 @@ section {
     flex-shrink: 0;
 }
 
-.structure-content h3 {
+.structure-content h3,
+.structure-content h4 {
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
     color: var(--text-dark);
 }
 
+.structure-content h4 {
+    font-size: 1.125rem;
+}
+
 .structure-content p {
     color: var(--text-gray);
     line-height: 1.7;
+    font-size: 0.95rem;
 }
 
 .report-example-cta {
     text-align: center;
     padding: 2rem;
-    background-color: var(--bg-white);
+    background-color: var(--bg-light);
     border-radius: 16px;
     box-shadow: var(--shadow-sm);
-}
-
-.report-example-text {
-    font-size: 1.125rem;
-    color: var(--text-dark);
-    margin-bottom: 1.5rem;
-    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .report-example-note {
@@ -1201,6 +1182,58 @@ section {
     
     .roi-visualization {
         grid-template-columns: 1fr;
+    }
+    
+    .process-cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .process-card {
+        padding: 1.5rem;
+    }
+    
+    .report-intro {
+        padding: 1.5rem;
+    }
+    
+    .report-time-badge {
+        padding: 0.75rem 1.5rem;
+        font-size: 1.1rem;
+    }
+    
+    .report-time-text {
+        font-size: 1.1rem;
+    }
+    
+    .process-summary {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .process-summary-item {
+        padding: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .report-intro {
+        padding: 1.25rem 1rem;
+    }
+    
+    .report-time-badge {
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .report-time-text {
+        font-size: 1rem;
+    }
+    
+    .report-intro-text {
+        font-size: 1rem;
     }
 }
 
