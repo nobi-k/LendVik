@@ -230,13 +230,33 @@ const observer = new IntersectionObserver(function(entries) {
 
 // Observe elements for fade-in animation
 document.addEventListener('DOMContentLoaded', function() {
-    const animatedElements = document.querySelectorAll('.problem-card, .expert-card, .process-step, .report-item, .next-step-card');
+    const animatedElements = document.querySelectorAll('.problem-card, .expert-card, .report-item, .next-step-card');
     
     animatedElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
+    });
+    
+    // Process cards animation
+    const processCards = document.querySelectorAll('.process-card');
+    const processObserver = new IntersectionObserver(function(entries) {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 150);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    processCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        processObserver.observe(card);
     });
 });
 
@@ -263,5 +283,262 @@ window.addEventListener('scroll', function() {
             link.classList.add('active');
         }
     });
+});
+
+// Callback Modal Functions
+function openCallbackModal() {
+    const modal = document.getElementById('callbackModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeCallbackModal() {
+    const modal = document.getElementById('callbackModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Handle callback form submission
+function handleCallbackSubmit(event) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const name = document.getElementById('callback-name').value.trim();
+    const phone = document.getElementById('callback-phone').value.trim();
+    const time = document.getElementById('callback-time').value;
+    
+    if (!name || !phone || !time) {
+        showCallbackMessage('Пожалуйста, заполните все поля', 'error', form);
+        return;
+    }
+    
+    const phoneRegex = /^[\d\s\-\+\(\)]+$/;
+    if (!phoneRegex.test(phone) || phone.length < 10) {
+        showCallbackMessage('Пожалуйста, введите корректный номер телефона', 'error', form);
+        return;
+    }
+    
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalText = submitButton.textContent;
+    submitButton.textContent = 'Отправка...';
+    submitButton.disabled = true;
+    
+    // Simulate API call
+    setTimeout(() => {
+        showCallbackMessage('Спасибо! Мы свяжемся с вами в указанное время.', 'success', form);
+        form.reset();
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+        
+        // Close modal after 2 seconds
+        setTimeout(() => {
+            closeCallbackModal();
+        }, 2000);
+    }, 1500);
+}
+
+// Show message function for callback form
+function showCallbackMessage(message, type, form) {
+    const existingMessage = form.querySelector('.form-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    const messageEl = document.createElement('div');
+    messageEl.className = `form-message form-message-${type}`;
+    messageEl.textContent = message;
+    messageEl.style.cssText = `
+        padding: 1rem;
+        margin-top: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: 500;
+        ${type === 'success' 
+            ? 'background-color: #d1fae5; color: #065f46;' 
+            : 'background-color: #fee2e2; color: #991b1b;'
+        }
+    `;
+    
+    form.appendChild(messageEl);
+    
+    setTimeout(() => {
+        messageEl.style.transition = 'opacity 0.3s';
+        messageEl.style.opacity = '0';
+        setTimeout(() => messageEl.remove(), 300);
+    }, 5000);
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeCallbackModal();
+    }
+});
+
+// Phone formatting for callback form
+document.addEventListener('DOMContentLoaded', function() {
+    const callbackPhoneInput = document.getElementById('callback-phone');
+    if (callbackPhoneInput) {
+        callbackPhoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length > 0) {
+                if (value[0] === '8') {
+                    value = '7' + value.slice(1);
+                }
+                if (value[0] !== '7' && value.length > 0) {
+                    value = '7' + value;
+                }
+            }
+            
+            let formatted = '+7';
+            if (value.length > 1) {
+                formatted += ' (' + value.slice(1, 4);
+            }
+            if (value.length >= 4) {
+                formatted += ') ' + value.slice(4, 7);
+            }
+            if (value.length >= 7) {
+                formatted += '-' + value.slice(7, 9);
+            }
+            if (value.length >= 9) {
+                formatted += '-' + value.slice(9, 11);
+            }
+            
+            e.target.value = formatted;
+        });
+    }
+});
+
+// Download report example (placeholder function)
+function downloadReportExample() {
+    // In production, this would download an actual PDF
+    // For now, we'll show a message
+    alert('Пример отчёта будет доступен для скачивания после добавления PDF файла. Свяжитесь с нами для получения примера.');
+    
+    // You can replace this with actual PDF download:
+    // window.open('path/to/example-report.pdf', '_blank');
+}
+
+// Form toggle functions
+function showFullForm() {
+    const quickForm = document.querySelector('.quick-form-container');
+    const fullForm = document.getElementById('full-form-container');
+    if (quickForm && fullForm) {
+        quickForm.style.display = 'none';
+        fullForm.style.display = 'block';
+        fullForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+}
+
+function showQuickForm() {
+    const quickForm = document.querySelector('.quick-form-container');
+    const fullForm = document.getElementById('full-form-container');
+    if (quickForm && fullForm) {
+        quickForm.style.display = 'block';
+        fullForm.style.display = 'none';
+    }
+}
+
+// Handle quick form submission
+function handleQuickFormSubmit(event) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const phone = document.getElementById('quick-phone').value.trim();
+    
+    if (!phone) {
+        showQuickMessage('Пожалуйста, введите номер телефона', 'error', form);
+        return;
+    }
+    
+    const phoneRegex = /^[\d\s\-\+\(\)]+$/;
+    if (!phoneRegex.test(phone) || phone.length < 10) {
+        showQuickMessage('Пожалуйста, введите корректный номер телефона', 'error', form);
+        return;
+    }
+    
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalText = submitButton.textContent;
+    submitButton.textContent = 'Отправка...';
+    submitButton.disabled = true;
+    
+    // Simulate API call
+    setTimeout(() => {
+        showQuickMessage('Спасибо! Мы свяжемся с вами в течение 15 минут.', 'success', form);
+        form.reset();
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+    }, 1500);
+}
+
+// Show message for quick form
+function showQuickMessage(message, type, form) {
+    const existingMessage = form.querySelector('.form-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    const messageEl = document.createElement('div');
+    messageEl.className = `form-message form-message-${type}`;
+    messageEl.textContent = message;
+    messageEl.style.cssText = `
+        padding: 1rem;
+        margin-top: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: 500;
+        ${type === 'success' 
+            ? 'background-color: #d1fae5; color: #065f46;' 
+            : 'background-color: #fee2e2; color: #991b1b;'
+        }
+    `;
+    
+    form.appendChild(messageEl);
+    
+    setTimeout(() => {
+        messageEl.style.transition = 'opacity 0.3s';
+        messageEl.style.opacity = '0';
+        setTimeout(() => messageEl.remove(), 300);
+    }, 5000);
+}
+
+// Phone formatting for quick form
+document.addEventListener('DOMContentLoaded', function() {
+    const quickPhoneInput = document.getElementById('quick-phone');
+    if (quickPhoneInput) {
+        quickPhoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length > 0) {
+                if (value[0] === '8') {
+                    value = '7' + value.slice(1);
+                }
+                if (value[0] !== '7' && value.length > 0) {
+                    value = '7' + value;
+                }
+            }
+            
+            let formatted = '+7';
+            if (value.length > 1) {
+                formatted += ' (' + value.slice(1, 4);
+            }
+            if (value.length >= 4) {
+                formatted += ') ' + value.slice(4, 7);
+            }
+            if (value.length >= 7) {
+                formatted += '-' + value.slice(7, 9);
+            }
+            if (value.length >= 9) {
+                formatted += '-' + value.slice(9, 11);
+            }
+            
+            e.target.value = formatted;
+        });
+    }
 });
 
