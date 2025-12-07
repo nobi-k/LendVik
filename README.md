@@ -22,7 +22,7 @@ LendVik/
 
 ## Деплой на GitHub Pages
 
-Сайт доступен по адресу: https://твой-username.github.io/LendVik/
+Сайт доступен по адресу: https://nobi-k.github.io/LendVik/
 
 ## Локальный запуск
 
@@ -31,4 +31,3 @@ python -m http.server 8000
 ```
 
 Затем откройте http://localhost:8000
-
