@@ -330,6 +330,32 @@ section {
     margin-bottom: 3rem;
 }
 
+.problems-group-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-top: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.problems-group-title:first-of-type {
+    margin-top: 2rem;
+}
+
+.problems-group-subtitle {
+    font-size: 1rem;
+    color: var(--text-gray);
+    margin-bottom: 1.5rem;
+}
+
+.problems-grid-main {
+    margin-bottom: 3rem;
+}
+
+.problems-grid-additional {
+    margin-bottom: 3rem;
+}
+
 .problem-card {
     background-color: var(--bg-white);
     padding: 2rem;
